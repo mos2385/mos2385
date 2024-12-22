@@ -1,0 +1,196 @@
+use northwind;
+-- 1 create a report that shows the categoryname and description from the categories table sorted by the categoryname.
+select categoryname, description
+ -- from categories
+ -- order by categoryname;
+ 
+-- 2  create a report that shows the contactname,companyname,contactTitle and phone number from the customer table sorted out by the phone.
+-- select contactname,companyname,contacttitle,phone
+from customers
+order by phone;
+-- 3 create a report that shows the capitalized firstname and capitalized lastname renamed as firstname and lastname respectively
+-- and hiredate from the employees table sorted from the newest to the oldest employees.
+ select upper(firstname) as firstname, upper(lastname)as lastname,hiredate;
+-- from employees
+-- ordered by hiredate desc;
+-- 4 create a report that shows the top 10 orderid orderdate, shippeddate,customerid,
+-- freight from the orders table sorted by freight in descending order.
+select orderid, orderdate, shippeddate,customerid, freight;
+-- from orders,
+-- order by freight desc;
+-- limit 10;
+-- 5 create a report that shows all the customerid, in lowercase letter and renamed as ID FROM THE Customer customers table.
+select lower(customerid)as ID
+from Customer;
+--  6 create a report that shows the companyname,fax,phone,country,homepage from the suppliers table sorted by
+-- by the country in descending order then by companyname in ascending order.
+select companyname, fax,phone,country,homepage
+from suppliers
+order by country desc,companyname asc;
+-- 7 create a report that shows companyname,contactname,of all customers from 'Buenos Aires' only. 
+select companyname,contactname
+from customers
+where city='Buenos Aires';
+-- 8 create a report showing productname, unitprice,quantity per unit of products that are out of stock.
+select productname,unitprice, quantityperunit
+from products
+where unitsinstock=0;
+-- 9 create a report showing all the contactname,address,city of all customers not from Germany,Mexico,Spain.
+select contactname,address, city
+from customers
+where country not in ('Germany', 'Mexico','Spain');
+-- 10 create a report showing orderdate,shippeddate,customerid,freight of all orders placed on 21 May 1996.
+select orderdate,shippeddate,customerid,freight
+from orders
+where orderdate='1996-05-21';
+-- 11 create a report  showing firstname, lastname,country from the employees not from united states.
+select firstname,lastname, country
+from employees e
+where counntry=!' USA';
+-- 12 create a report that shows the  employeeid,orderid,customerid,requireddate,shippeddate 
+-- from all orders shipped later than the required date.
+select employeeid,orderid,customerid,requireddate,shippeddate
+from orders o
+where shippeddate> requireddate;
+-- 13 Create a report that shows  the city,companyname,contactname of customers from
+-- the cities starting with A OR B.
+select city,companyname,contactname 
+from customers
+where city like 'A%' or city like 'B%';
+-- 14 create a  report  showing all the even numbers of orderid from the orders table.
+select orderid 
+from orders o
+where orderid %2=o;
+-- 15 create a  report that shows all the orders where the freight cost more than $500.
+select freight
+from orders o
+where freight > $500;
+-- 16 create a report that shows the productname,unitsinstock,unitsorder,reorderlevel
+-- of all products that are up for reorder.
+select productname,unitsinstock, unitsorder, reorderlevel
+from products p
+where unitinstock < reorderlavel;
+-- 17 create a report that shows the companyname,contactname,number of all 
+-- customers that have no fax number.
+select companyname,contactname
+from customer c
+where fax is null
+-- 18 create a report that shows the firstname,lastname of all employees that do not report to anybody
+-- select firstname,lastname
+-- from employee e
+-- where report to is null
+-- 19 create a  report  showing all the odd numbers of orderid from the orders table.
+-- Select  orderid
+-- from orders o
+-- where orderid%2=1;
+-- 20 create a report that shows the companyname,contactname,fax of all customers that do not have fax
+-- number and sorted by contactname.
+-- select companyname,contactname,fax
+-- from customers c
+-- where fax is null
+-- order by contactname
+-- 21  Create a report that shows the city,companyname,contactname of customers fromthe cities that has letter L in the name sorted by contactname.
+select city,companyname,contactname
+from customers c
+where city like '%L%
+order by contactname
+
+-- 22 create a report that shows the firstname,lastname,birthday of employees born in the 1950s.
+select firstname,lastname,birthdate
+from employees e
+where birthdate between'1950-01-01' and '1959-12-31';
+-- 23 create a report that shows the firstname,lastname, the year of birthdate as birth year from the employees table.
+select the firstname,lastname,year(birthdate) as birthyear
+from employees e
+-- 24  create a report showing orderid,total number of orderid as numberoforders from orderdetails table grouped by 
+-- orderid and sorted by numberoforders in descending order.HINT:you will need to use a groupby statement.
+select orderid,count(orderid)as numberoforders
+from' order details' 
+group by orderid
+order by numberoforders desc;
+-- 25 create a report that shows the supplierid,productname,companyname from all product by exotic liquids,
+-- specially biscuits,ltd,,escargots Nouveaux sorted by the supplierid
+select s.supplierid,p.productname, s.companyname
+from supplier s
+join product p on s.supplierid=p.supplierid
+where s.companyname in('Exotic liquids','speciality biscuits,ltd,','Escargots Nouveax')
+order by supplierid
+-- 26 create a report that shows the shippostalcode,orderid,orderdate,requireddate,shippeddate,shipaddress
+-- of all orders with shippostalcode beginning with"98124".
+select shippostalcode,orderid, orderdate,requireddate,shippeddate,shipaddress
+from orders o
+where postalcode like '98124%';
+-- 27 create a report that shows the contactname,contacttitle,companyname of customers that the has no"sales" in their contacttitle.
+select contactname,contacttitle,companyname
+from customers c
+where contacttitle not like '%sales%';
+-- 28 create a report that shows the lastname,firstname,city of employees,cities other than "seattle";
+select lastname,firstname,city
+from employees e
+where city !='seattle';
+-- 29 create a report that shows the companyname,contacttitle,city,country of all customers in any city
+-- in Mexico or other cities in spain other than Madrid.
+select companyname,contacttitle,city,country
+from customers c
+where country='Mexico'or country='spain' and city !='Madrid';
+-- 30 create a select statement that outputs the following:/*contactinfo.
+Nancy Davolio can be reached at x5467
+Andrew fuller can be reached at x3457
+Janet Leverling can be reached at x3355
+Magaret Peacock can be reached at x5176
+Steven Buchanan can be reached at x3453
+Michael Suyama can be reached at x428
+Robert king can be reached at x465
+Laura callahan can be reached at x2344
+Anne Dodsworth can be reached at x452*/
+select concat(firstname,' ',lastname,'can be reached at x', extension)as contact info
+from employees e
+  
+
+  
+
+    
+
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+'
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
